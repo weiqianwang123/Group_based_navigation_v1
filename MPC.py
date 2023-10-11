@@ -113,7 +113,7 @@ def run_trial(dataset, dataset_idx, init_start_config, init_end_config, start_fr
             ped_goals_current = []
 
         for frame in range(start_frame, time_limit):
-            print([frame, time_limit], end='\r')
+            #print([frame, time_limit], end='\r')
             if (gh.at_goal(start_config, end_config, final_thresh) == True):
                 time_out = False
                 end_status.append(0) # 0 = success
@@ -308,6 +308,14 @@ def run_trial(dataset, dataset_idx, init_start_config, init_end_config, start_fr
                                                             ped_pos_current, ped_vel_current, 
                                                             ped_goals_current)
 
+
+            mpc_h.visualize_frame(rollouts, lowest_cost_ind, ped_pos_current, groups_vertices, start_config,
+                                  end_config, pred_flag, has_ped)
+
+
+            plt.pause(0.0001)
+            plt.cla()
+        plt.show()
         if (time_out == True):
             end_status.append(2) # 2 = timeout
             if include_when_fail:
@@ -316,6 +324,7 @@ def run_trial(dataset, dataset_idx, init_start_config, init_end_config, start_fr
                 path_lengths.append(gh.estimate_path_length(robot_path))
                 path_irregularities.append(gh.estimate_path_irregularity(robot_path))
             all_robo_paths.append(robot_path)
+
 
     success = 0
     for st in end_status:
@@ -342,7 +351,9 @@ if __name__ == "__main__":
     pfile_name = "test_cases/all.txt"
     with open(pfile_name, "rb") as fp:
         cases = pickle.load(fp)
-    cases = [cases[0]]
+
+    print(cases[1])
+    cases = [cases[2]]
 
     if group_flag:
         exp_name = "group_" + pred_method
@@ -370,7 +381,7 @@ if __name__ == "__main__":
         time_limit = case[5]
 
         start_time = time()
-        metrics = run_trial(dataset, 
+        metrics = run_trial(dataset,
                             dataset_idx, 
                             init_start_config, 
                             init_end_config, 
@@ -383,4 +394,6 @@ if __name__ == "__main__":
         all_results.append((case, metrics))
         with open(fname, "wb") as f:
             pickle.dump(all_results, f)
+        print(metrics)
+
 

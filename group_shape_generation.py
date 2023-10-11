@@ -95,7 +95,7 @@ class GroupShapeGeneration(object):
         return dist
     
     @classmethod
-    def draw_social_shapes(cls, position, velocity, laser_flag, const=0.35):
+    def draw_social_shapes(cls, position, velocity, laser_flag=0, const=0.35):
         # This function draws social group shapes
         # given the positions and velocities of the pedestrians.
 

@@ -215,16 +215,22 @@ def evaluate_rollouts(msg, robo_pos, rollouts, occupied_points, ped_vels, group_
 #VISUALIZATION:
 
 def visualize_rollouts(rollouts, lowest_cost_ind):
+    plt.xlim((-10, 20))
+    plt.ylim((-10,20))
     for i in range (len(rollouts)):
         if(i!=lowest_cost_ind):
-            plt.plot(rollouts[i][:,0], rollouts[i][:,1], 'b')
+            pass
+            #plt.plot(rollouts[i][:,0], rollouts[i][:,1], 'b')
         else:
             plt.plot(rollouts[i][:,0], rollouts[i][:,1], 'y')
 
-def visualize_frame(rollouts, lowest_cost_ind, ped_pos, group_boundaries, start_config, end_config, pred=False, has_ped=True):
+
+
+def visualize_frame(rollouts, lowest_cost_ind, ped_pos, group_boundaries, start_config, end_config, pred=False, has_ped=False):
     visualize_rollouts(rollouts, lowest_cost_ind)
     if has_ped:
-        if len(np.shape(group_boundaries)) != 0:
+        #if len(np.shape(group_boundaries)) != 0:
+        if True:
             visualize_groups(group_boundaries, pred)
             plt.scatter(ped_pos[:, 0], ped_pos[:, 1], c='r')
         else:
@@ -239,5 +245,7 @@ def visualize_frame(rollouts, lowest_cost_ind, ped_pos, group_boundaries, start_
 
     plt.plot(start_config[0], start_config[1], 'go')
     plt.plot(end_config[0], end_config[1], 'mo')
-    plt.show()
+
+
+
 

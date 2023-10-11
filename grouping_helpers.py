@@ -81,6 +81,6 @@ def get_groups(gs_gen, group_ids, frame, edge_step_size):
 def visualize_groups(groups_vertices, prediction=False):
     if(prediction):
         for groups_vertices_current in groups_vertices:
-            plt.scatter(group_vertices_current[:, 0], group_vertices_current[:, 1], s=1, c='k')
+            plt.scatter(groups_vertices_current[:, 0], groups_vertices_current[:, 1], s=1, c='k')
     else:
         plt.scatter(groups_vertices[:, 0], groups_vertices[:, 1], s=1, c='k')
